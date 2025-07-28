@@ -7,22 +7,34 @@
 
 int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
                       _In_ wchar_t *command_line, _In_ int show_command) {
-  // Attach to console when present (e.g., 'flutter run') or create a
-  // new console when running with a debugger.
-  if (!::AttachConsole(ATTACH_PARENT_PROCESS) && ::IsDebuggerPresent()) {
-    CreateAndAttachConsole();
+  HWND hwnd = FindWindow(L"FLUTTER_RUNNER_WIN32_WINDOW", L"wimi_app");
+  if (hwnd != NULL) {
+    ShowWindow(hwnd, SW_RESTORE);
+    SetForegroundWindow(hwnd);
+    return 0;
   }
 
-  // Initialize COM, so that it is available for use in the library and/or
-  // plugins.
-  ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
+  wchar_t szFlutterDartProject[256];
+  if (GetEnvironmentVariable(L"FLUTTER_TEST", szFlutterDartProject, 256) == 0) {
+    GetCurrentDirectory(256, szFlutterDartProject);
+  }
+
+  std::wstring project_path = szFlutterDartProject;
+  std::wstring data_directory = project_path + L"\\data";
+  std::wstring assets_path = project_path + L"\\build\\flutter_assets";
+  std::wstring icu_data_path = project_path + L"\\data\\icudtl.dat";
+
+  std::wstring cache_path = project_path + L"\\cache";
+  std::wstring code_cache_path = cache_path + L"\\code_cache";
+
+  if (DirectoryExists(cache_path)) {
+    if (!DirectoryExists(code_cache_path)) {
+      CreateDirectory(code_cache_path.c_str(), nullptr);
+    }
+  }
 
   flutter::DartProject project(L"data");
-
-  std::vector<std::string> command_line_arguments =
-      GetCommandLineArguments();
-
-  project.set_dart_entrypoint_arguments(std::move(command_line_arguments));
+  project.set_dart_entrypoint_arguments({});
 
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);

@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:427127271682:android:ad3bffa2a29d65a9d9121b",
+        "android_client_info": {
+          "package_name": "com.example.wimi_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGDzVgjAqgRf24KJ6Pa00JLuwD81sp8ro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:427127271682:android:66960dbb39b5e83bd9121b",
         "android_client_info": {
           "package_name": "com.wimi.app"
