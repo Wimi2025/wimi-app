@@ -78,10 +78,7 @@ class FirebaseService {
   // Actualizar último login
   Future<void> updateUserLastLogin(String userId) async {
     try {
-      await _firestore
-          .collection(_usersCollection)
-          .doc(userId)
-          .update({
+      await _firestore.collection(_usersCollection).doc(userId).update({
         'lastLogin': DateTime.now().toIso8601String(),
       });
     } catch (e) {
@@ -108,7 +105,9 @@ class FirebaseService {
   }
 
   // Obtener lecciones por categoría
-  Future<List<Map<String, dynamic>>> getLessonsByCategory(String category) async {
+  Future<List<Map<String, dynamic>>> getLessonsByCategory(
+    String category,
+  ) async {
     try {
       final querySnapshot = await _firestore
           .collection(_lessonsCollection)
@@ -162,7 +161,9 @@ class FirebaseService {
   // ========== LEADERBOARDS ==========
 
   // Obtener leaderboard global
-  Future<List<Map<String, dynamic>>> getGlobalLeaderboard({int limit = 10}) async {
+  Future<List<Map<String, dynamic>>> getGlobalLeaderboard({
+    int limit = 10,
+  }) async {
     try {
       final querySnapshot = await _firestore
           .collection(_usersCollection)
@@ -179,7 +180,10 @@ class FirebaseService {
   }
 
   // Obtener leaderboard por categoría
-  Future<List<Map<String, dynamic>>> getCategoryLeaderboard(String category, {int limit = 10}) async {
+  Future<List<Map<String, dynamic>>> getCategoryLeaderboard(
+    String category, {
+    int limit = 10,
+  }) async {
     try {
       final querySnapshot = await _firestore
           .collection(_usersCollection)
@@ -198,12 +202,9 @@ class FirebaseService {
   // ========== ANALYTICS ==========
 
   // Registrar evento de analytics
-  Future<void> logEvent(String name, {Map<String, dynamic>? parameters}) async {
+  Future<void> logEvent(String name, {Map<String, Object>? parameters}) async {
     try {
-      await _analytics.logEvent(
-        name: name,
-        parameters: parameters,
-      );
+      await _analytics.logEvent(name: name, parameters: parameters);
     } catch (e) {
       // No lanzar excepción para analytics
       debugPrint('Error al registrar evento de analytics: $e');
@@ -222,24 +223,27 @@ class FirebaseService {
 
   // Registrar completación de lección
   Future<void> logLessonCompleted(String lessonId, String category) async {
-    await logEvent('lesson_completed', parameters: {
-      'lesson_id': lessonId,
-      'category': category,
-    });
+    await logEvent(
+      'lesson_completed',
+      parameters:
+          {'lesson_id': lessonId, 'category': category} as Map<String, Object>,
+    );
   }
 
   // Registrar ganancia de XP
   Future<void> logXPGained(int xp) async {
-    await logEvent('xp_gained', parameters: {
-      'xp_amount': xp,
-    });
+    await logEvent(
+      'xp_gained',
+      parameters: {'xp_amount': xp} as Map<String, Object>,
+    );
   }
 
   // Registrar subida de nivel
   Future<void> logLevelUp(int level) async {
-    await logEvent('level_up', parameters: {
-      'level': level,
-    });
+    await logEvent(
+      'level_up',
+      parameters: {'level': level} as Map<String, Object>,
+    );
   }
 
   // ========== UTILIDADES ==========
@@ -247,10 +251,7 @@ class FirebaseService {
   // Verificar si existe un documento
   Future<bool> documentExists(String collection, String documentId) async {
     try {
-      final doc = await _firestore
-          .collection(collection)
-          .doc(documentId)
-          .get();
+      final doc = await _firestore.collection(collection).doc(documentId).get();
       return doc.exists;
     } catch (e) {
       return false;
@@ -264,4 +265,4 @@ class FirebaseService {
   DocumentReference getDocumentReference(String collection, String documentId) {
     return _firestore.collection(collection).doc(documentId);
   }
-} 
+}
