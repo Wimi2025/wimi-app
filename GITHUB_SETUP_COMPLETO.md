@@ -1,231 +1,193 @@
-# 🚀 Guía Completa de Configuración GitHub - Wimi App
+# 🚀 Configuración Completa de GitHub con Cursor - Wimi App
 
-## ✅ **ESTADO ACTUAL**
-- ✅ Proyecto configurado localmente
-- ✅ Estructura profesional implementada
-- ✅ Firebase configurado
-- ✅ Todas las herramientas funcionando
-- ⚠️ Repositorio GitHub con reglas de protección
+## ✅ Estado Actual
+- ✅ Repositorio Git configurado
+- ✅ Conexión remota establecida con GitHub
+- ✅ Auto-save configurado en Cursor
+- ✅ Formateo automático de código
+- ✅ Scripts de automatización creados
+- ✅ Hooks de Git configurados
 
-## 🔧 **CONFIGURACIÓN DE GITHUB**
+## 📋 Configuración Implementada
 
-### Paso 1: Configurar Permisos del Repositorio
-
-El repositorio `Wimi2025/wimi-app` tiene reglas de protección que requieren Pull Requests. Necesitas:
-
-1. **Ir a Settings del repositorio**:
-   - Ve a: https://github.com/Wimi2025/wimi-app/settings
-   - Navega a "Branches" en el menú lateral
-
-2. **Configurar reglas de branch**:
-   - Busca la sección "Branch protection rules"
-   - Para la rama `main`:
-     - ✅ Require a pull request before merging
-     - ✅ Require status checks to pass before merging
-     - ✅ Require branches to be up to date before merging
-   - Para la rama `develop`:
-     - ✅ Allow force pushes
-     - ✅ Allow deletions
-
-### Paso 2: Configurar GitHub Actions
-
-1. **Ir a Actions**:
-   - Ve a: https://github.com/Wimi2025/wimi-app/actions
-   - El workflow ya está configurado en `.github/workflows/flutter.yml`
-
-2. **Habilitar Actions**:
-   - Si no están habilitadas, ve a Settings → Actions → General
-   - Selecciona "Allow all actions and reusable workflows"
-
-### Paso 3: Configurar Firebase para CI/CD
-
-1. **Obtener Firebase Token**:
-   ```bash
-   npm install -g firebase-tools
-   firebase login:ci
-   ```
-
-2. **Configurar Secretos en GitHub**:
-   - Ve a Settings → Secrets and variables → Actions
-   - Agregar secreto: `FIREBASE_TOKEN` con el token obtenido
-
-## 📤 **SUBIENDO EL PROYECTO**
-
-### Opción A: Usando Pull Request (Recomendado)
-
-1. **Crear rama feature**:
-   ```bash
-   git checkout -b feature/implementacion-completa
-   git add .
-   git commit -m "feat: Implementación completa con estructura profesional"
-   git push origin feature/implementacion-completa
-   ```
-
-2. **Crear Pull Request**:
-   - Ve a: https://github.com/Wimi2025/wimi-app/pulls
-   - Click "New Pull Request"
-   - Selecciona `feature/implementacion-completa` → `main`
-   - Título: "feat: Implementación completa con estructura profesional"
-   - Descripción: Incluir detalles del proyecto
-
-3. **Merge del PR**:
-   - Una vez aprobado, hacer merge
-   - El código estará en `main`
-
-### Opción B: Configurar Permisos Temporales
-
-Si necesitas subir directamente:
-
-1. **Deshabilitar temporalmente las reglas**:
-   - Settings → Branches → Branch protection rules
-   - Deshabilitar temporalmente las reglas para `main`
-   - Hacer push
-   - Volver a habilitar las reglas
-
-## 🎯 **COMANDOS PARA EJECUTAR**
-
-### Configuración Inicial
-```bash
-# Verificar estado actual
-git status
-git remote -v
-
-# Configurar rama principal
-git branch -M main
-
-# Hacer push inicial
-git push -u origin main
+### 1. **Configuración de Cursor (.vscode/settings.json)**
+```json
+{
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "git.autofetchPeriod": 180,
+  "git.confirmSync": false,
+  "git.enableCommitSigning": false,
+  "git.autoStash": true,
+  "git.showPushSuccessNotification": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  }
+}
 ```
 
-### Si hay errores de permisos
-```bash
-# Crear rama de feature
-git checkout -b feature/implementacion-completa
+### 2. **Script de Automatización (scripts/git-commit.ps1)**
+- Commit automático con mensaje personalizable
+- Push automático al repositorio
+- Verificación de estado antes de commit
 
-# Agregar todos los cambios
+### 3. **Hook de Pre-commit (.git/hooks/pre-commit)**
+- Formateo automático de código Dart
+- Agregado automático de archivos formateados
+
+## 🔄 Flujo de Trabajo Automatizado
+
+### **Opción 1: Uso Manual (Recomendado)**
+```bash
+# Ver estado actual
+git status
+
+# Agregar cambios
 git add .
 
-# Commit con mensaje descriptivo
-git commit -m "feat: Implementación completa con estructura profesional
+# Commit con mensaje
+git commit -m "feat: Descripción de los cambios"
 
-- Estructura Clean Architecture implementada
-- Firebase configurado (Auth, Firestore, Analytics)
-- Navegación con Go Router
-- State management con Provider
-- Temas Material 3
-- CI/CD con GitHub Actions
-- Documentación completa"
-
-# Push a la rama feature
-git push -u origin feature/implementacion-completa
+# Push al repositorio
+git push
 ```
 
-## 🔍 **VERIFICACIÓN POST-SUBIDA**
+### **Opción 2: Script Automatizado**
+```powershell
+# Commit y push automático
+.\scripts\git-commit.ps1 -Message "feat: Nuevas funcionalidades"
 
-### 1. Verificar GitHub Actions
-- Ve a: https://github.com/Wimi2025/wimi-app/actions
-- Deberías ver el workflow ejecutándose
+# Solo commit sin push
+.\scripts\git-commit.ps1 -Message "feat: Cambios" -Push:$false
 
-### 2. Verificar Estructura del Repositorio
-```
-wimi-app/
-├── .github/
-│   └── workflows/
-│       └── flutter.yml
-├── lib/
-│   ├── app/
-│   │   ├── app.dart
-│   │   ├── navigation/
-│   │   └── theme/
-│   ├── core/
-│   │   └── constants/
-│   ├── features/
-│   │   ├── auth/
-│   │   ├── dashboard/
-│   │   ├── lessons/
-│   │   ├── profile/
-│   │   └── gamification/
-│   └── shared/
-│       └── services/
-├── firebase.json
-├── firestore.rules
-├── storage.rules
-├── firestore.indexes.json
-├── README.md
-├── SETUP_GUIDE.md
-└── NAVEGACION_APP.md
+# Commit solo archivos modificados
+.\scripts\git-commit.ps1 -Message "fix: Correcciones" -All:$false
 ```
 
-### 3. Verificar Firebase
-- Ve a: https://console.firebase.google.com/project/wimi-app-1c105
-- Verificar que todos los servicios estén activos
+### **Opción 3: Cursor Source Control**
+1. Abrir Source Control en Cursor (Ctrl+Shift+G)
+2. Ver cambios en el panel
+3. Hacer stage de archivos
+4. Escribir mensaje de commit
+5. Hacer commit y push
 
-## 🚀 **EJECUTAR LA APLICACIÓN**
+## 🎯 Características Automáticas
 
-### En Windows (Recomendado)
+### **Auto-save**
+- Los archivos se guardan automáticamente después de 1 segundo de inactividad
+- No hay riesgo de perder cambios
+
+### **Formateo Automático**
+- Código Dart se formatea automáticamente al guardar
+- Imports se organizan automáticamente
+- Línea de código limitada a 80 caracteres
+
+### **Git Integración**
+- Fetch automático cada 3 minutos
+- Notificaciones de push exitoso
+- Smart commit habilitado
+- Auto-stash para cambios no committeados
+
+## 📁 Estructura de Archivos Importantes
+
+```
+wimi_app/
+├── .vscode/
+│   └── settings.json          # Configuración de Cursor
+├── scripts/
+│   └── git-commit.ps1        # Script de automatización
+├── .git/
+│   └── hooks/
+│       └── pre-commit        # Hook de formateo automático
+├── .gitignore                # Archivos ignorados por Git
+└── GITHUB_SETUP_COMPLETO.md  # Esta documentación
+```
+
+## 🔧 Comandos Útiles
+
+### **Verificar Estado**
 ```bash
-flutter run -d windows
+git status                    # Estado actual
+git log --oneline -5         # Últimos 5 commits
+git branch -a                # Todas las ramas
 ```
 
-### En Web
+### **Sincronización**
 ```bash
-flutter run -d chrome
+git fetch                    # Obtener cambios remotos
+git pull                     # Descargar y fusionar cambios
+git push                     # Subir cambios locales
 ```
 
-### En Android
+### **Ramas**
 ```bash
-flutter run -d android
+git checkout -b nueva-rama   # Crear y cambiar a nueva rama
+git checkout main           # Cambiar a rama principal
+git merge rama-feature      # Fusionar rama
 ```
 
-## 📱 **NAVEGACIÓN DE LA APP**
+## 🚨 Solución de Problemas
 
-### Flujo Principal:
-1. **Welcome Screen** → Pantalla de bienvenida
-2. **Login/Register** → Autenticación
-3. **Dashboard** → Hub principal con stats
-4. **Lessons** → Categorías de lecciones
-5. **Achievements** → Logros desbloqueados
-6. **Profile** → Perfil y configuración
-
-### Características Implementadas:
-- ✅ Autenticación con Firebase
-- ✅ Sistema de niveles y XP
-- ✅ Navegación fluida
-- ✅ Temas claro/oscuro
-- ✅ State management
-- ✅ Estructura escalable
-
-## 🔧 **SOLUCIÓN DE PROBLEMAS**
-
-### Error: "Repository rule violations"
+### **Error de Autenticación**
 ```bash
-# Usar rama feature en lugar de main
-git checkout -b feature/nombre-feature
-git push origin feature/nombre-feature
-# Crear Pull Request en GitHub
+# Configurar credenciales
+git config --global user.name "tu-usuario"
+git config --global user.email "tu-email@ejemplo.com"
 ```
 
-### Error: "Permission denied"
-- Verificar que tienes permisos de escritura en el repositorio
-- Contactar al administrador del repositorio
-
-### Error: "Firebase not initialized"
+### **Conflictos de Merge**
 ```bash
-flutter clean
-flutter pub get
-flutter run
+# Ver conflictos
+git status
+
+# Resolver conflictos manualmente
+# Luego agregar y commitear
+git add .
+git commit -m "fix: Resolver conflictos"
 ```
 
-## 📞 **CONTACTO Y SOPORTE**
+### **Reset de Cambios**
+```bash
+# Descartar cambios en archivo específico
+git checkout -- archivo.dart
 
-Si necesitas ayuda adicional:
-1. Revisar `README.md` para documentación general
-2. Revisar `SETUP_GUIDE.md` para configuración
-3. Revisar `NAVEGACION_APP.md` para uso de la app
-4. Crear un Issue en GitHub para problemas técnicos
+# Descartar todos los cambios
+git checkout -- .
 
----
+# Resetear último commit
+git reset --soft HEAD~1
+```
 
-**¡El proyecto está listo para ser subido a GitHub! 🎉**
+## 📊 Buenas Prácticas
 
-Sigue los pasos de esta guía para completar la configuración. 
+### **Mensajes de Commit**
+- Usar prefijos: `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`, `chore:`
+- Mensajes descriptivos y en español
+- Máximo 50 caracteres en la primera línea
+
+### **Frecuencia de Commits**
+- Commit frecuente (cada cambio significativo)
+- No acumular muchos cambios en un solo commit
+- Commit antes de hacer push
+
+### **Ramas**
+- `main`: Código estable
+- `develop`: Desarrollo activo
+- `feature/`: Nuevas funcionalidades
+- `fix/`: Correcciones de bugs
+
+## 🎉 ¡Listo para Usar!
+
+Tu configuración está completa y optimizada para trabajar con Cursor y GitHub. Los cambios se guardarán automáticamente y podrás sincronizar fácilmente con el repositorio remoto.
+
+### **Próximos Pasos:**
+1. Continuar desarrollando tu aplicación Wimi
+2. Usar los comandos Git según necesites
+3. Mantener commits frecuentes y descriptivos
+4. Usar ramas para nuevas funcionalidades
+
+¡Happy coding! 🚀 
