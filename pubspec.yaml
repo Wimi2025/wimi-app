@@ -12,45 +12,89 @@ dependencies:
     sdk: flutter
 
   # UI y Navegación
-  cupertino_icons: ^1.0.6
+  cupertino_icons: ^1.0.8
   go_router: ^14.6.2
 
   # State Management
   provider: ^6.1.2
+  riverpod: ^2.6.1  # Añadido para state management avanzado
+  flutter_riverpod: ^2.6.1
 
-  # Firebase
-  firebase_core: ^3.6.0
-  firebase_auth: ^5.3.3
-  cloud_firestore: ^5.5.3
-  firebase_analytics: ^11.3.3
+  # Firebase (Actualizadas a v4+)
+  firebase_core: ^4.0.0
+  firebase_auth: ^6.0.0
+  cloud_firestore: ^6.0.0
+  firebase_analytics: ^12.0.0
   firebase_storage: ^12.3.3
-  firebase_messaging: ^15.1.3
+  firebase_messaging: ^16.0.0
+  firebase_crashlytics: ^4.2.0  # Añadido para error tracking
 
   # Utilidades
   shared_preferences: ^2.3.3
-  path_provider: ^2.1.4
-  sqflite: ^2.3.3+1
+  path_provider: ^2.1.5
+  sqflite: ^2.4.1
   http: ^1.2.2
+  dio: ^5.8.0  # Añadido para networking avanzado
 
   # Multimedia
   audioplayers: ^6.1.0
+  video_player: ^2.9.2  # Añadido para contenido video
+  cached_network_image: ^3.4.1  # Añadido para optimización de imágenes
 
   # Geolocalización
   geolocator: ^13.0.1
 
   # Información del dispositivo
-  device_info_plus: ^10.1.0
+  device_info_plus: ^11.5.0
+
+  # Testing y Debugging
+  flutter_dotenv: ^5.2.1  # Para variables de entorno
+  logger: ^2.4.0  # Para logging avanzado
+
+  # Performance y Analytics
+  sentry_flutter: ^8.11.0  # Para monitoring
+  performance: ^1.0.0  # Para métricas de performance
+
+  # UI/UX Enhancements
+  flutter_animate: ^4.5.0  # Para animaciones
+  lottie: ^3.3.0  # Para animaciones Lottie
+  shimmer: ^3.0.0  # Para loading states
+  flutter_staggered_grid_view: ^0.7.0  # Para layouts avanzados
+
+  # Internacionalización
+  intl: ^0.20.1
+  flutter_localizations:
+    sdk: flutter
+
+  # Utilities
+  equatable: ^2.0.7  # Para comparación de objetos
+  freezed_annotation: ^2.4.4  # Para modelos inmutables
+  json_annotation: ^4.9.0  # Para serialización JSON
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
+  
+  # Code Generation
+  build_runner: ^2.4.13
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  
+  # Testing
+  mockito: ^5.4.4
+  integration_test:
+    sdk: flutter
+  patrol: ^3.12.1  # Para testing avanzado
 
 flutter:
   uses-material-design: true
+  generate: true  # Para internacionalización
   
   assets:
     - assets/images/
     - assets/icons/
     - assets/animations/
     - assets/sounds/
+    - assets/lottie/
+    - .env

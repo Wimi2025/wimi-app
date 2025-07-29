@@ -11,7 +11,7 @@ class AppTheme {
         brightness: Brightness.light,
       ),
       fontFamily: 'Roboto',
-      
+
       // AppBar
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.primary,
@@ -24,7 +24,7 @@ class AppTheme {
           color: Colors.white,
         ),
       ),
-      
+
       // Botones
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -37,7 +37,7 @@ class AppTheme {
           elevation: 2,
         ),
       ),
-      
+
       // Textos
       textTheme: const TextTheme(
         headlineLarge: TextStyle(
@@ -55,25 +55,17 @@ class AppTheme {
           fontWeight: FontWeight.w600,
           color: AppColors.textPrimary,
         ),
-        bodyLarge: TextStyle(
-          fontSize: 16,
-          color: AppColors.textPrimary,
-        ),
-        bodyMedium: TextStyle(
-          fontSize: 14,
-          color: AppColors.textSecondary,
-        ),
+        bodyLarge: TextStyle(fontSize: 16, color: AppColors.textPrimary),
+        bodyMedium: TextStyle(fontSize: 14, color: AppColors.textSecondary),
       ),
-      
+
       // Cards
       cardTheme: CardThemeData(
         elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: AppColors.card,
       ),
-      
+
       // Inputs
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
@@ -86,11 +78,14 @@ class AppTheme {
         ),
         filled: true,
         fillColor: Colors.grey[50],
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
       ),
     );
   }
-  
+
   // Tema oscuro
   static ThemeData get darkTheme {
     return ThemeData(
@@ -100,7 +95,7 @@ class AppTheme {
         brightness: Brightness.dark,
       ),
       fontFamily: 'Roboto',
-      
+
       // AppBar
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.primaryDark,
@@ -113,7 +108,7 @@ class AppTheme {
           color: Colors.white,
         ),
       ),
-      
+
       // Botones
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -126,7 +121,7 @@ class AppTheme {
           elevation: 2,
         ),
       ),
-      
+
       // Textos
       textTheme: const TextTheme(
         headlineLarge: TextStyle(
@@ -144,25 +139,17 @@ class AppTheme {
           fontWeight: FontWeight.w600,
           color: Colors.white,
         ),
-        bodyLarge: TextStyle(
-          fontSize: 16,
-          color: Colors.white,
-        ),
-        bodyMedium: TextStyle(
-          fontSize: 14,
-          color: Colors.grey,
-        ),
+        bodyLarge: TextStyle(fontSize: 16, color: Colors.white),
+        bodyMedium: TextStyle(fontSize: 14, color: Colors.grey),
       ),
-      
+
       // Cards
       cardTheme: CardThemeData(
         elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: Colors.grey[800],
       ),
-      
+
       // Inputs
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
@@ -175,8 +162,11 @@ class AppTheme {
         ),
         filled: true,
         fillColor: Colors.grey[900],
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
       ),
     );
   }
-} 
+}
