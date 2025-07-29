@@ -1,0 +1,54 @@
+name: Auto Merge PR
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Check if PR is ready for merge
+        id: check
+        run: |
+          # Verificar que el PR tenga al menos 1 review aprobado
+          # o que sea del propietario del repositorio
+          if [[ "${{ github.event.pull_request.user.login }}" == "${{ github.repository_owner }}" ]]; then
+            echo "is_owner=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_owner=false" >> $GITHUB_OUTPUT
+          fi
+          
+          # Verificar que no haya conflictos
+          if [[ "${{ github.event.pull_request.mergeable_state }}" == "clean" ]]; then
+            echo "is_mergeable=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_mergeable=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Auto merge PR
+        if: steps.check.outputs.is_owner == 'true' && steps.check.outputs.is_mergeable == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pull } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            
+            if (pull.mergeable && pull.mergeable_state === 'clean') {
+              await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                merge_method: 'squash',
+                commit_title: `Merge PR #${context.issue.number}: ${pull.title}`,
+                commit_message: `Closes #${context.issue.number}\n\n${pull.body || ''}`
+              });
+              console.log(`✅ PR #${context.issue.number} merged automatically`);
+            } else {
+              console.log(`⏳ PR #${context.issue.number} not ready for merge`);
+            } 
