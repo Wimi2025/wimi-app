@@ -1,391 +1,294 @@
-import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+
+part 'mission_model.freezed.dart';
+part 'mission_model.g.dart';
+
+@freezed
+class Mission with _$Mission {
+  const factory Mission({
+    required String id,
+    required String title,
+    required String description,
+    required String category,
+    required MissionType type,
+    required MissionDifficulty difficulty,
+    required int xpReward,
+    required int coinsReward,
+    required Map<String, dynamic> requirements,
+    required Map<String, dynamic> progress,
+    required DateTime createdAt,
+    required DateTime? expiresAt,
+    @Default(false) bool isCompleted,
+    @Default(false) bool isActive,
+    @Default(false) bool isDaily,
+    @Default(false) bool isWeekly,
+    @Default([]) List<String> prerequisites,
+    @Default([]) List<MissionReward> rewards,
+  }) = _Mission;
+
+  factory Mission.fromJson(Map<String, dynamic> json) =>
+      _$MissionFromJson(json);
+}
+
+@freezed
+class MissionReward with _$MissionReward {
+  const factory MissionReward({
+    required RewardType type,
+    required String id,
+    required int quantity,
+    String? description,
+  }) = _MissionReward;
+
+  factory MissionReward.fromJson(Map<String, dynamic> json) =>
+      _$MissionRewardFromJson(json);
+}
 
 enum MissionType {
-  daily, // Misiones diarias
-  weekly, // Misiones semanales
-  monthly, // Misiones mensuales
-  special, // Misiones especiales de eventos
-  story, // Misiones de historia/campaña
+  lesson, // Completar lecciones
+  streak, // Mantener racha
+  score, // Obtener puntuación
+  time, // Tiempo en app
+  social, // Actividades sociales
+  achievement, // Desbloquear logros
+  quiz, // Responder quizzes
+  video, // Ver videos
+  reading, // Leer contenido
+  practice, // Ejercicios prácticos
+  challenge, // Desafíos especiales
+  exploration, // Explorar secciones
 }
 
-enum MissionStatus {
-  locked, // Bloqueada (requisitos no cumplidos)
-  available, // Disponible para iniciar
-  active, // En progreso
-  completed, // Completada
-  expired, // Expirada
-}
+enum MissionDifficulty { easy, medium, hard, expert }
 
-enum MissionDifficulty {
-  beginner, // Principiante
-  intermediate, // Intermedio
-  advanced, // Avanzado
-  expert, // Experto
-}
+enum RewardType { xp, coins, badge, avatar, theme, powerup, unlockContent }
 
-class Mission {
-  final String id;
-  final String title;
-  final String description;
-  final String longDescription;
-
-  final MissionType type;
-  final MissionStatus status;
-  final MissionDifficulty difficulty;
-
-  // Recompensas
-  final int xpReward;
-  final int coinsReward;
-  final List<String> badgeRewards;
-  final Map<String, dynamic> specialRewards;
-
-  // Progreso
-  final int currentProgress;
-  final int targetProgress;
-  final List<MissionObjective> objectives;
-
-  // Configuración
-  final DateTime? startDate;
-  final DateTime? endDate;
-  final Duration? timeLimit;
-  final List<String> prerequisites; // IDs de misiones prerequisito
-
-  // Metadatos
-  final String category; // 'ahorro', 'inversion', 'presupuesto', etc.
-  final String iconPath;
-  final Color primaryColor;
-  final List<String> tags;
-
-  const Mission({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.longDescription,
-    required this.type,
-    required this.status,
-    required this.difficulty,
-    required this.xpReward,
-    required this.coinsReward,
-    required this.badgeRewards,
-    required this.specialRewards,
-    required this.currentProgress,
-    required this.targetProgress,
-    required this.objectives,
-    this.startDate,
-    this.endDate,
-    this.timeLimit,
-    required this.prerequisites,
-    required this.category,
-    required this.iconPath,
-    required this.primaryColor,
-    required this.tags,
-  });
-
-  // Getters calculados
-  double get progressPercentage => targetProgress > 0
-      ? (currentProgress / targetProgress).clamp(0.0, 1.0)
-      : 0.0;
-
-  bool get isCompleted => status == MissionStatus.completed;
-  bool get isActive => status == MissionStatus.active;
-  bool get isExpired => endDate != null && DateTime.now().isAfter(endDate!);
-  bool get hasTimeLimit => timeLimit != null;
-
-  Duration? get remainingTime {
-    if (endDate == null) return null;
-    final remaining = endDate!.difference(DateTime.now());
-    return remaining.isNegative ? Duration.zero : remaining;
+// Extensiones para facilitar el uso
+extension MissionTypeExtension on MissionType {
+  String get displayName {
+    switch (this) {
+      case MissionType.lesson:
+        return 'Lección';
+      case MissionType.streak:
+        return 'Racha';
+      case MissionType.score:
+        return 'Puntuación';
+      case MissionType.time:
+        return 'Tiempo';
+      case MissionType.social:
+        return 'Social';
+      case MissionType.achievement:
+        return 'Logro';
+      case MissionType.quiz:
+        return 'Quiz';
+      case MissionType.video:
+        return 'Video';
+      case MissionType.reading:
+        return 'Lectura';
+      case MissionType.practice:
+        return 'Práctica';
+      case MissionType.challenge:
+        return 'Desafío';
+      case MissionType.exploration:
+        return 'Exploración';
+    }
   }
 
-  String get difficultyDisplayName {
-    switch (difficulty) {
-      case MissionDifficulty.beginner:
-        return 'Principiante';
-      case MissionDifficulty.intermediate:
-        return 'Intermedio';
-      case MissionDifficulty.advanced:
-        return 'Avanzado';
+  String get icon {
+    switch (this) {
+      case MissionType.lesson:
+        return '📚';
+      case MissionType.streak:
+        return '🔥';
+      case MissionType.score:
+        return '⭐';
+      case MissionType.time:
+        return '⏱️';
+      case MissionType.social:
+        return '👥';
+      case MissionType.achievement:
+        return '🏆';
+      case MissionType.quiz:
+        return '❓';
+      case MissionType.video:
+        return '🎥';
+      case MissionType.reading:
+        return '📖';
+      case MissionType.practice:
+        return '💪';
+      case MissionType.challenge:
+        return '⚡';
+      case MissionType.exploration:
+        return '🗺️';
+    }
+  }
+}
+
+extension MissionDifficultyExtension on MissionDifficulty {
+  String get displayName {
+    switch (this) {
+      case MissionDifficulty.easy:
+        return 'Fácil';
+      case MissionDifficulty.medium:
+        return 'Medio';
+      case MissionDifficulty.hard:
+        return 'Difícil';
       case MissionDifficulty.expert:
         return 'Experto';
     }
   }
 
-  String get typeDisplayName {
-    switch (type) {
-      case MissionType.daily:
-        return 'Diaria';
-      case MissionType.weekly:
-        return 'Semanal';
-      case MissionType.monthly:
-        return 'Mensual';
-      case MissionType.special:
-        return 'Especial';
-      case MissionType.story:
-        return 'Historia';
+  String get color {
+    switch (this) {
+      case MissionDifficulty.easy:
+        return '#4CAF50';
+      case MissionDifficulty.medium:
+        return '#FF9800';
+      case MissionDifficulty.hard:
+        return '#F44336';
+      case MissionDifficulty.expert:
+        return '#9C27B0';
     }
   }
 
-  // Métodos de utilidad
-  Mission copyWith({
-    String? id,
-    String? title,
-    String? description,
-    String? longDescription,
-    MissionType? type,
-    MissionStatus? status,
-    MissionDifficulty? difficulty,
-    int? xpReward,
-    int? coinsReward,
-    List<String>? badgeRewards,
-    Map<String, dynamic>? specialRewards,
-    int? currentProgress,
-    int? targetProgress,
-    List<MissionObjective>? objectives,
-    DateTime? startDate,
-    DateTime? endDate,
-    Duration? timeLimit,
-    List<String>? prerequisites,
-    String? category,
-    String? iconPath,
-    Color? primaryColor,
-    List<String>? tags,
-  }) {
-    return Mission(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      longDescription: longDescription ?? this.longDescription,
-      type: type ?? this.type,
-      status: status ?? this.status,
-      difficulty: difficulty ?? this.difficulty,
-      xpReward: xpReward ?? this.xpReward,
-      coinsReward: coinsReward ?? this.coinsReward,
-      badgeRewards: badgeRewards ?? this.badgeRewards,
-      specialRewards: specialRewards ?? this.specialRewards,
-      currentProgress: currentProgress ?? this.currentProgress,
-      targetProgress: targetProgress ?? this.targetProgress,
-      objectives: objectives ?? this.objectives,
-      startDate: startDate ?? this.startDate,
-      endDate: endDate ?? this.endDate,
-      timeLimit: timeLimit ?? this.timeLimit,
-      prerequisites: prerequisites ?? this.prerequisites,
-      category: category ?? this.category,
-      iconPath: iconPath ?? this.iconPath,
-      primaryColor: primaryColor ?? this.primaryColor,
-      tags: tags ?? this.tags,
-    );
-  }
-
-  // Serialización
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'description': description,
-      'longDescription': longDescription,
-      'type': type.index,
-      'status': status.index,
-      'difficulty': difficulty.index,
-      'xpReward': xpReward,
-      'coinsReward': coinsReward,
-      'badgeRewards': badgeRewards,
-      'specialRewards': specialRewards,
-      'currentProgress': currentProgress,
-      'targetProgress': targetProgress,
-      'objectives': objectives.map((obj) => obj.toJson()).toList(),
-      'startDate': startDate?.toIso8601String(),
-      'endDate': endDate?.toIso8601String(),
-      'timeLimit': timeLimit?.inMilliseconds,
-      'prerequisites': prerequisites,
-      'category': category,
-      'iconPath': iconPath,
-      'primaryColor': primaryColor.value,
-      'tags': tags,
-    };
-  }
-
-  factory Mission.fromJson(Map<String, dynamic> json) {
-    return Mission(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      longDescription: json['longDescription'],
-      type: MissionType.values[json['type']],
-      status: MissionStatus.values[json['status']],
-      difficulty: MissionDifficulty.values[json['difficulty']],
-      xpReward: json['xpReward'],
-      coinsReward: json['coinsReward'],
-      badgeRewards: List<String>.from(json['badgeRewards']),
-      specialRewards: Map<String, dynamic>.from(json['specialRewards']),
-      currentProgress: json['currentProgress'],
-      targetProgress: json['targetProgress'],
-      objectives: (json['objectives'] as List)
-          .map((obj) => MissionObjective.fromJson(obj))
-          .toList(),
-      startDate: json['startDate'] != null
-          ? DateTime.parse(json['startDate'])
-          : null,
-      endDate: json['endDate'] != null ? DateTime.parse(json['endDate']) : null,
-      timeLimit: json['timeLimit'] != null
-          ? Duration(milliseconds: json['timeLimit'])
-          : null,
-      prerequisites: List<String>.from(json['prerequisites']),
-      category: json['category'],
-      iconPath: json['iconPath'],
-      primaryColor: Color(json['primaryColor']),
-      tags: List<String>.from(json['tags']),
-    );
+  int get multiplier {
+    switch (this) {
+      case MissionDifficulty.easy:
+        return 1;
+      case MissionDifficulty.medium:
+        return 2;
+      case MissionDifficulty.hard:
+        return 3;
+      case MissionDifficulty.expert:
+        return 5;
+    }
   }
 }
 
-class MissionObjective {
-  final String id;
-  final String title;
-  final String description;
-  final bool isCompleted;
+// Clase para gestionar progreso de misiones
+class MissionProgress extends Equatable {
+  final String missionId;
   final int currentValue;
   final int targetValue;
-  final String type; // 'lesson_complete', 'xp_earn', 'streak_maintain', etc.
-  final Map<String, dynamic> parameters;
+  final DateTime lastUpdate;
+  final Map<String, dynamic> metadata;
 
-  const MissionObjective({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.isCompleted,
+  const MissionProgress({
+    required this.missionId,
     required this.currentValue,
     required this.targetValue,
-    required this.type,
-    required this.parameters,
+    required this.lastUpdate,
+    this.metadata = const {},
   });
 
   double get progressPercentage =>
       targetValue > 0 ? (currentValue / targetValue).clamp(0.0, 1.0) : 0.0;
 
-  MissionObjective copyWith({
-    String? id,
-    String? title,
-    String? description,
-    bool? isCompleted,
+  bool get isCompleted => currentValue >= targetValue;
+
+  int get remainingValue => (targetValue - currentValue).clamp(0, targetValue);
+
+  MissionProgress copyWith({
+    String? missionId,
     int? currentValue,
     int? targetValue,
-    String? type,
-    Map<String, dynamic>? parameters,
+    DateTime? lastUpdate,
+    Map<String, dynamic>? metadata,
   }) {
-    return MissionObjective(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      isCompleted: isCompleted ?? this.isCompleted,
+    return MissionProgress(
+      missionId: missionId ?? this.missionId,
       currentValue: currentValue ?? this.currentValue,
       targetValue: targetValue ?? this.targetValue,
-      type: type ?? this.type,
-      parameters: parameters ?? this.parameters,
+      lastUpdate: lastUpdate ?? this.lastUpdate,
+      metadata: metadata ?? this.metadata,
+    );
+  }
+
+  factory MissionProgress.fromJson(Map<String, dynamic> json) {
+    return MissionProgress(
+      missionId: json['missionId'] as String,
+      currentValue: json['currentValue'] as int,
+      targetValue: json['targetValue'] as int,
+      lastUpdate: DateTime.parse(json['lastUpdate'] as String),
+      metadata: json['metadata'] as Map<String, dynamic>? ?? {},
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'title': title,
-      'description': description,
-      'isCompleted': isCompleted,
+      'missionId': missionId,
       'currentValue': currentValue,
       'targetValue': targetValue,
-      'type': type,
-      'parameters': parameters,
+      'lastUpdate': lastUpdate.toIso8601String(),
+      'metadata': metadata,
     };
   }
 
-  factory MissionObjective.fromJson(Map<String, dynamic> json) {
-    return MissionObjective(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      isCompleted: json['isCompleted'],
-      currentValue: json['currentValue'],
-      targetValue: json['targetValue'],
-      type: json['type'],
-      parameters: Map<String, dynamic>.from(json['parameters']),
-    );
-  }
+  @override
+  List<Object?> get props => [
+    missionId,
+    currentValue,
+    targetValue,
+    lastUpdate,
+    metadata,
+  ];
 }
 
 // Factory para crear misiones predefinidas
 class MissionFactory {
-  static List<Mission> getDefaultMissions() {
-    return [
-      // Misión diaria de ejemplo
-      Mission(
-        id: 'daily_lesson_complete',
-        title: 'Aprendiz Diario',
-        description: 'Completa una lección hoy',
-        longDescription:
-            'Mantén tu racha de aprendizaje completando al menos una lección cada día.',
-        type: MissionType.daily,
-        status: MissionStatus.available,
-        difficulty: MissionDifficulty.beginner,
-        xpReward: 50,
-        coinsReward: 25,
-        badgeRewards: [],
-        specialRewards: {},
-        currentProgress: 0,
-        targetProgress: 1,
-        objectives: [
-          MissionObjective(
-            id: 'complete_lesson',
-            title: 'Completar lección',
-            description: 'Completa cualquier lección disponible',
-            isCompleted: false,
-            currentValue: 0,
-            targetValue: 1,
-            type: 'lesson_complete',
-            parameters: {},
-          ),
-        ],
-        endDate: DateTime.now().add(const Duration(days: 1)),
-        prerequisites: [],
-        category: 'general',
-        iconPath: 'assets/icons/daily_mission.svg',
-        primaryColor: Colors.blue,
-        tags: ['diario', 'leccion'],
-      ),
+  static Mission createDailyLesson() {
+    return Mission(
+      id: 'daily_lesson_${DateTime.now().millisecondsSinceEpoch}',
+      title: 'Lección Diaria',
+      description: 'Completa al menos una lección hoy',
+      category: 'daily',
+      type: MissionType.lesson,
+      difficulty: MissionDifficulty.easy,
+      xpReward: 50,
+      coinsReward: 10,
+      requirements: {'lessons_to_complete': 1},
+      progress: {'lessons_completed': 0},
+      createdAt: DateTime.now(),
+      expiresAt: DateTime.now().add(const Duration(days: 1)),
+      isDaily: true,
+      isActive: true,
+    );
+  }
 
-      // Misión semanal de ejemplo
-      Mission(
-        id: 'weekly_streak',
-        title: 'Racha Semanal',
-        description: 'Mantén una racha de 7 días',
-        longDescription:
-            'Demuestra tu dedicación manteniendo una racha de aprendizaje durante toda la semana.',
-        type: MissionType.weekly,
-        status: MissionStatus.available,
-        difficulty: MissionDifficulty.intermediate,
-        xpReward: 300,
-        coinsReward: 150,
-        badgeRewards: ['streak_master'],
-        specialRewards: {'special_theme': 'fire_theme'},
-        currentProgress: 0,
-        targetProgress: 7,
-        objectives: [
-          MissionObjective(
-            id: 'maintain_streak',
-            title: 'Mantener racha',
-            description: 'Estudia durante 7 días consecutivos',
-            isCompleted: false,
-            currentValue: 0,
-            targetValue: 7,
-            type: 'streak_maintain',
-            parameters: {'consecutive_days': 7},
-          ),
-        ],
-        endDate: DateTime.now().add(const Duration(days: 7)),
-        prerequisites: [],
-        category: 'disciplina',
-        iconPath: 'assets/icons/streak_mission.svg',
-        primaryColor: Colors.orange,
-        tags: ['semanal', 'racha', 'disciplina'],
-      ),
-    ];
+  static Mission createWeeklyStreak() {
+    return Mission(
+      id: 'weekly_streak_${DateTime.now().millisecondsSinceEpoch}',
+      title: 'Racha Semanal',
+      description: 'Mantén una racha de 7 días consecutivos',
+      category: 'weekly',
+      type: MissionType.streak,
+      difficulty: MissionDifficulty.medium,
+      xpReward: 200,
+      coinsReward: 50,
+      requirements: {'streak_days': 7},
+      progress: {'current_streak': 0},
+      createdAt: DateTime.now(),
+      expiresAt: DateTime.now().add(const Duration(days: 7)),
+      isWeekly: true,
+      isActive: true,
+    );
+  }
+
+  static Mission createChallengeQuiz(String category) {
+    return Mission(
+      id: 'challenge_quiz_${category}_${DateTime.now().millisecondsSinceEpoch}',
+      title: 'Desafío de $category',
+      description: 'Responde correctamente 5 preguntas de $category',
+      category: category,
+      type: MissionType.quiz,
+      difficulty: MissionDifficulty.hard,
+      xpReward: 100,
+      coinsReward: 25,
+      requirements: {'correct_answers': 5, 'category': category},
+      progress: {'answers_correct': 0},
+      createdAt: DateTime.now(),
+      expiresAt: DateTime.now().add(const Duration(days: 3)),
+      isActive: true,
+    );
   }
 }
