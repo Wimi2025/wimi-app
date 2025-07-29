@@ -17,29 +17,32 @@ dependencies:
 
   # State Management
   provider: ^6.1.2
-  riverpod: ^2.6.1  # Añadido para state management avanzado
+  riverpod: ^2.6.1
   flutter_riverpod: ^2.6.1
 
-  # Firebase (Actualizadas a v4+)
-  firebase_core: ^4.0.0
-  firebase_auth: ^6.0.0
-  cloud_firestore: ^6.0.0
-  firebase_analytics: ^12.0.0
+  # Firebase (Versiones compatibles actuales)
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.3
+  cloud_firestore: ^5.5.3
+  firebase_analytics: ^11.3.3
   firebase_storage: ^12.3.3
-  firebase_messaging: ^16.0.0
-  firebase_crashlytics: ^4.2.0  # Añadido para error tracking
+  firebase_messaging: ^15.1.3
+  firebase_crashlytics: ^4.1.3
 
   # Utilidades
   shared_preferences: ^2.3.3
   path_provider: ^2.1.5
   sqflite: ^2.4.1
   http: ^1.2.2
-  dio: ^5.8.0  # Añadido para networking avanzado
+  dio: ^5.8.0
 
   # Multimedia
   audioplayers: ^6.1.0
-  video_player: ^2.9.2  # Añadido para contenido video
-  cached_network_image: ^3.4.1  # Añadido para optimización de imágenes
+  video_player: ^2.9.2
+  cached_network_image: ^3.4.1
+
+  # Conectividad
+  connectivity_plus: ^6.1.0
 
   # Geolocalización
   geolocator: ^13.0.1
@@ -48,18 +51,17 @@ dependencies:
   device_info_plus: ^11.5.0
 
   # Testing y Debugging
-  flutter_dotenv: ^5.2.1  # Para variables de entorno
-  logger: ^2.4.0  # Para logging avanzado
+  flutter_dotenv: ^5.2.1
+  logger: ^2.4.0
 
   # Performance y Analytics
-  sentry_flutter: ^8.11.0  # Para monitoring
-  performance: ^1.0.0  # Para métricas de performance
+  sentry_flutter: ^8.11.0
 
   # UI/UX Enhancements
-  flutter_animate: ^4.5.0  # Para animaciones
-  lottie: ^3.3.0  # Para animaciones Lottie
-  shimmer: ^3.0.0  # Para loading states
-  flutter_staggered_grid_view: ^0.7.0  # Para layouts avanzados
+  flutter_animate: ^4.5.0
+  lottie: ^3.3.0
+  shimmer: ^3.0.0
+  flutter_staggered_grid_view: ^0.7.0
 
   # Internacionalización
   intl: ^0.20.1
@@ -67,9 +69,9 @@ dependencies:
     sdk: flutter
 
   # Utilities
-  equatable: ^2.0.7  # Para comparación de objetos
-  freezed_annotation: ^2.4.4  # Para modelos inmutables
-  json_annotation: ^4.9.0  # Para serialización JSON
+  equatable: ^2.0.7
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
@@ -85,11 +87,10 @@ dev_dependencies:
   mockito: ^5.4.4
   integration_test:
     sdk: flutter
-  patrol: ^3.12.1  # Para testing avanzado
 
 flutter:
   uses-material-design: true
-  generate: true  # Para internacionalización
+  generate: true
   
   assets:
     - assets/images/
