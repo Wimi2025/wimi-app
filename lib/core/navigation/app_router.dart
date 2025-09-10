@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/onboarding/screens/welcome_screen.dart';
+import '../../features/onboarding/screens/treasure_onboarding_screen.dart';
 import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/register_screen.dart';
+import '../../features/auth/screens/treasure_auth_screen.dart';
 import '../../features/dashboard/screens/dashboard_screen.dart';
 import '../../features/lessons/screens/lessons_screen.dart';
 import '../../features/gamification/screens/achievements_screen.dart';
@@ -40,10 +41,20 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/',
         name: 'welcome',
-        builder: (context, state) => const WelcomeScreen(),
+        builder: (context, state) => const TreasureOnboardingScreen(),
+      ),
+      GoRoute(
+        path: '/onboarding',
+        name: 'onboarding',
+        builder: (context, state) => const TreasureOnboardingScreen(),
       ),
 
       // Autenticación
+      GoRoute(
+        path: '/auth',
+        name: 'auth',
+        builder: (context, state) => const TreasureAuthScreen(),
+      ),
       GoRoute(
         path: '/login',
         name: 'login',

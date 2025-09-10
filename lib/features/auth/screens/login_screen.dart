@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../app/navigation/app_router.dart';
 import '../../../core/constants/app_colors.dart';
-import '../providers/auth_provider.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -27,9 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Iniciar Sesión'),
-      ),
+      appBar: AppBar(title: const Text('Iniciar Sesión')),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Form(
@@ -51,26 +48,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.white,
                 ),
               ),
-              
+
               const SizedBox(height: 32),
-              
+
               // Título
               Text(
                 '¡Bienvenido de vuelta!',
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
-              
+
               const SizedBox(height: 8),
-              
+
               Text(
                 'Continúa tu aventura financiera',
                 style: Theme.of(context).textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
-              
+
               const SizedBox(height: 32),
-              
+
               // Email
               TextFormField(
                 controller: _emailController,
@@ -89,9 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // Contraseña
               TextFormField(
                 controller: _passwordController,
@@ -110,32 +107,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              
+
               const SizedBox(height: 24),
-              
+
               // Botón de login
-              Consumer<AuthProvider>(
-                builder: (context, authProvider, child) {
-                  return SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: authProvider.isLoading ? null : _handleLogin,
-                      child: authProvider.isLoading
-                          ? const CircularProgressIndicator(color: Colors.white)
-                          : const Text('Iniciar Sesión'),
-                    ),
-                  );
-                },
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _handleLogin,
+                  child: const Text('Iniciar Sesión'),
+                ),
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // Enlaces
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    onPressed: () => context.goToRegister(),
+                    onPressed: () => context.go('/register'),
                     child: const Text('¿No tienes cuenta?'),
                   ),
                   TextButton(
@@ -144,29 +135,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              
-              // Error
-              Consumer<AuthProvider>(
-                builder: (context, authProvider, child) {
-                  if (authProvider.error != null) {
-                    return Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: AppColors.error.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: AppColors.error),
-                      ),
-                      child: Text(
-                        authProvider.error!,
-                        style: TextStyle(color: AppColors.error),
-                        textAlign: TextAlign.center,
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
+
+              // Error placeholder
+              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -176,21 +147,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _handleLogin() async {
     if (_formKey.currentState!.validate()) {
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      final success = await authProvider.signInWithEmailAndPassword(
-        _emailController.text.trim(),
-        _passwordController.text,
+      // TODO: Implementar autenticación real
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Funcionalidad de login en desarrollo'),
+          backgroundColor: AppColors.info,
+        ),
       );
-      
-      if (success && mounted) {
-        context.goToDashboard();
-      }
+      context.go('/dashboard');
     }
   }
 
   void _showForgotPasswordDialog() {
     final emailController = TextEditingController();
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -198,7 +168,9 @@ class _LoginScreenState extends State<LoginScreen> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('Ingresa tu email para recibir un enlace de recuperación'),
+            const Text(
+              'Ingresa tu email para recibir un enlace de recuperación',
+            ),
             const SizedBox(height: 16),
             TextField(
               controller: emailController,
@@ -218,22 +190,13 @@ class _LoginScreenState extends State<LoginScreen> {
           ElevatedButton(
             onPressed: () async {
               if (emailController.text.isNotEmpty) {
-                final authProvider = Provider.of<AuthProvider>(context, listen: false);
-                final success = await authProvider.resetPassword(emailController.text.trim());
-                
-                if (mounted) {
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        success 
-                          ? 'Email de recuperación enviado'
-                          : 'Error al enviar email',
-                      ),
-                      backgroundColor: success ? AppColors.success : AppColors.error,
-                    ),
-                  );
-                }
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Funcionalidad en desarrollo'),
+                    backgroundColor: AppColors.info,
+                  ),
+                );
               }
             },
             child: const Text('Enviar'),
@@ -242,4 +205,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-} 
+}

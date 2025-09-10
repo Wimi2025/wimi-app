@@ -12,7 +12,12 @@
           "package_name": "com.example.wimi_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "427127271682-google_client_id.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCGDzVgjAqgRf24KJ6Pa00JLuwD81sp8ro"
@@ -20,26 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:427127271682:android:66960dbb39b5e83bd9121b",
-        "android_client_info": {
-          "package_name": "com.wimi.app"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCGDzVgjAqgRf24KJ6Pa00JLuwD81sp8ro"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427127271682-web_client_id.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

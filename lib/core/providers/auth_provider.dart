@@ -87,6 +87,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
   void clearError() {
     state = state.copyWith(error: null);
   }
+
+  Future<void> setUser(AuthUser user) async {
+    state = state.copyWith(user: user, isLoading: false, error: null);
+  }
 }
 
 // Providers

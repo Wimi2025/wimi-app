@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Colores principales - Nueva paleta morada basada en tu diseño
-  static const Color primary = Color(0xFF8B5CF6); // Morado principal
-  static const Color primaryDark = Color(0xFF7C3AED); // Morado oscuro
-  static const Color primaryLight = Color(0xFFA855F7); // Morado claro
+  // Colores principales - Temática de búsqueda de tesoro
+  static const Color primary = Color(0xFFFFD700); // Oro principal
+  static const Color primaryDark = Color(0xFFB8860B); // Oro oscuro
+  static const Color primaryLight = Color(0xFFFFF8DC); // Oro claro
 
-  // Colores secundarios
-  static const Color secondary = Color(0xFFEC4899); // Rosa/fucsia
-  static const Color secondaryDark = Color(0xFFDB2777); // Rosa oscuro
-  static const Color secondaryLight = Color(0xFFF472B6); // Rosa claro
+  // Colores secundarios - Aventura y tesoro
+  static const Color secondary = Color(0xFF8B4513); // Marrón tesoro
+  static const Color secondaryDark = Color(0xFF654321); // Marrón oscuro
+  static const Color secondaryLight = Color(0xFFD2691E); // Marrón claro
 
   // Colores de éxito y error - Actualizados para mejor contraste
   static const Color success = Color(0xFF10B981); // Verde moderno
@@ -35,24 +35,25 @@ class AppColors {
   static const Color bronze = Color(0xFFF97316); // Bronce moderno
   static const Color xp = Color(0xFF06B6D4); // Cyan para XP
 
-  // Colores específicos de Wimi
-  static const Color wimiPurple = Color(0xFF8B5CF6); // Morado Wimi
-  static const Color wimiPink = Color(0xFFEC4899); // Rosa Wimi
-  static const Color wimiGreen = Color(0xFF10B981); // Verde Wimi
-  static const Color wimiOrange = Color(0xFFF97316); // Naranja Wimi
-  static const Color wimiBlue = Color(0xFF3B82F6); // Azul Wimi
+  // Colores específicos de Wimi - Temática de tesoro
+  static const Color wimiGold = Color(0xFFFFD700); // Oro Wimi
+  static const Color wimiBronze = Color(0xFFCD7F32); // Bronce Wimi
+  static const Color wimiSilver = Color(0xFFC0C0C0); // Plata Wimi
+  static const Color wimiEmerald = Color(0xFF50C878); // Esmeralda Wimi
+  static const Color wimiRuby = Color(0xFFE0115F); // Rubí Wimi
+  static const Color wimiSapphire = Color(0xFF0F52BA); // Zafiro Wimi
 
-  // Gradientes - Nuevos con paleta morada
+  // Gradientes - Temática de tesoro
   static const LinearGradient primaryGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFF8B5CF6), Color(0xFF7C3AED)],
+    colors: [Color(0xFFFFD700), Color(0xFFB8860B)],
   );
 
   static const LinearGradient secondaryGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFFEC4899), Color(0xFFDB2777)],
+    colors: [Color(0xFF8B4513), Color(0xFF654321)],
   );
 
   static const LinearGradient successGradient = LinearGradient(

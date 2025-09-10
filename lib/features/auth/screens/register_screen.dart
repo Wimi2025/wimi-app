@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../app/navigation/app_router.dart';
 import '../../../core/constants/app_colors.dart';
-import '../providers/auth_provider.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -29,9 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Crear Cuenta'),
-      ),
+      appBar: AppBar(title: const Text('Crear Cuenta')),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Form(
@@ -53,26 +50,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   color: Colors.white,
                 ),
               ),
-              
+
               const SizedBox(height: 32),
-              
+
               // Título
               Text(
                 '¡Únete a Wimi!',
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
-              
+
               const SizedBox(height: 8),
-              
+
               Text(
                 'Comienza tu viaje hacia la libertad financiera',
                 style: Theme.of(context).textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
-              
+
               const SizedBox(height: 32),
-              
+
               // Nombre
               TextFormField(
                 controller: _nameController,
@@ -87,9 +84,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return null;
                 },
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // Email
               TextFormField(
                 controller: _emailController,
@@ -108,9 +105,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return null;
                 },
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // Contraseña
               TextFormField(
                 controller: _passwordController,
@@ -129,54 +126,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return null;
                 },
               ),
-              
+
               const SizedBox(height: 24),
-              
+
               // Botón de registro
-              Consumer<AuthProvider>(
-                builder: (context, authProvider, child) {
-                  return SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: authProvider.isLoading ? null : _handleRegister,
-                      child: authProvider.isLoading
-                          ? const CircularProgressIndicator(color: Colors.white)
-                          : const Text('Crear Cuenta'),
-                    ),
-                  );
-                },
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _handleRegister,
+                  child: const Text('Crear Cuenta'),
+                ),
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // Enlace a login
               TextButton(
-                onPressed: () => context.goToLogin(),
+                onPressed: () => context.go('/login'),
                 child: const Text('¿Ya tienes cuenta? Inicia sesión'),
               ),
-              
-              // Error
-              Consumer<AuthProvider>(
-                builder: (context, authProvider, child) {
-                  if (authProvider.error != null) {
-                    return Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: AppColors.error.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: AppColors.error),
-                      ),
-                      child: Text(
-                        authProvider.error!,
-                        style: TextStyle(color: AppColors.error),
-                        textAlign: TextAlign.center,
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
+
+              // Error placeholder
+              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -186,16 +157,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _handleRegister() async {
     if (_formKey.currentState!.validate()) {
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      final success = await authProvider.createUserWithEmailAndPassword(
-        _emailController.text.trim(),
-        _passwordController.text,
-        _nameController.text.trim(),
+      // TODO: Implementar registro real
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Funcionalidad de registro en desarrollo'),
+          backgroundColor: AppColors.info,
+        ),
       );
-      
-      if (success && mounted) {
-        context.goToDashboard();
-      }
+      context.go('/dashboard');
     }
   }
-} 
+}

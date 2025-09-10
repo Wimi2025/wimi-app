@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../app/navigation/app_router.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../auth/providers/auth_provider.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: AppColors.primaryGradient,
-        ),
+        decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Spacer(),
-              
+
               // Logo/Icono
               Container(
                 width: 120,
@@ -42,9 +39,9 @@ class WelcomeScreen extends StatelessWidget {
                   color: AppColors.primary,
                 ),
               ),
-              
+
               const SizedBox(height: 40),
-              
+
               // Título
               const Text(
                 'Wimi',
@@ -55,9 +52,9 @@ class WelcomeScreen extends StatelessWidget {
                   letterSpacing: 2,
                 ),
               ),
-              
+
               const SizedBox(height: 10),
-              
+
               // Subtítulo
               const Text(
                 'Aprende finanzas de forma divertida',
@@ -68,15 +65,15 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              
+
               const SizedBox(height: 60),
-              
+
               // Botón de inicio
               Container(
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 40),
                 child: ElevatedButton(
-                  onPressed: () => _handleStartButton(context),
+                  onPressed: () => context.go('/dashboard'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: AppColors.primary,
@@ -88,38 +85,26 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   child: const Text(
                     'Comenzar Aventura',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 20),
-              
+
               // Características
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 40),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    FeatureItem(
-                      icon: Icons.school,
-                      text: 'Aprende',
-                    ),
-                    FeatureItem(
-                      icon: Icons.emoji_events,
-                      text: 'Gana',
-                    ),
-                    FeatureItem(
-                      icon: Icons.trending_up,
-                      text: 'Crece',
-                    ),
+                    FeatureItem(icon: Icons.school, text: 'Aprende'),
+                    FeatureItem(icon: Icons.emoji_events, text: 'Gana'),
+                    FeatureItem(icon: Icons.trending_up, text: 'Crece'),
                   ],
                 ),
               ),
-              
+
               const Spacer(),
             ],
           ),
@@ -127,27 +112,13 @@ class WelcomeScreen extends StatelessWidget {
       ),
     );
   }
-
-  void _handleStartButton(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    
-    if (authProvider.isAuthenticated) {
-      context.goToDashboard();
-    } else {
-      context.goToLogin();
-    }
-  }
 }
 
 class FeatureItem extends StatelessWidget {
   final IconData icon;
   final String text;
-  
-  const FeatureItem({
-    super.key,
-    required this.icon,
-    required this.text,
-  });
+
+  const FeatureItem({super.key, required this.icon, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -160,11 +131,7 @@ class FeatureItem extends StatelessWidget {
             color: Colors.white.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(25),
           ),
-          child: Icon(
-            icon,
-            color: Colors.white,
-            size: 24,
-          ),
+          child: Icon(icon, color: Colors.white, size: 24),
         ),
         const SizedBox(height: 8),
         Text(
@@ -177,4 +144,4 @@ class FeatureItem extends StatelessWidget {
       ],
     );
   }
-} 
+}
