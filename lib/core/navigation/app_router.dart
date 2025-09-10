@@ -8,6 +8,7 @@ import '../../features/auth/screens/register_screen.dart';
 import '../../features/auth/screens/treasure_auth_screen.dart';
 import '../../features/dashboard/screens/dashboard_screen.dart';
 import '../../features/lessons/screens/lessons_screen.dart';
+import '../../features/lessons/screens/routes_screen.dart';
 import '../../features/gamification/screens/achievements_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
 import '../providers/auth_provider.dart';
@@ -75,7 +76,15 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/lessons',
         name: 'lessons',
-        builder: (context, state) => const LessonsScreen(),
+        builder: (context, state) => const RoutesScreen(),
+      ),
+      GoRoute(
+        path: '/lessons/:routeId',
+        name: 'lessons-route',
+        builder: (context, state) {
+          final routeId = state.pathParameters['routeId']!;
+          return LessonsScreen(routeId: routeId);
+        },
       ),
       GoRoute(
         path: '/achievements',

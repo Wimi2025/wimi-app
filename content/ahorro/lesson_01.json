@@ -1,0 +1,67 @@
+{
+  "routeId": "ahorro",
+  "lessonId": "ahorro_01",
+  "title": "Fundamentos del ahorro",
+  "order": 1,
+  "durationMin": 6,
+  "blocks": [
+    {
+      "type": "text",
+      "payload": {
+        "md": "# Fundamentos del ahorro\n\nEl ahorro es la **base** de tu estabilidad financiera. Sin ahorro, no hay inversión, no hay tranquilidad, no hay futuro financiero.\n\n## 💰 ¿Por qué ahorrar?\n\n- 🛡️ **Fondo de emergencia**: Para imprevistos\n- 🎯 **Metas específicas**: Casa, auto, viaje\n- 📈 **Inversiones**: Hacer crecer tu dinero\n- 😌 **Paz mental**: Menos estrés financiero\n\n## 🏆 La regla de oro:\n\n**Págate a ti mismo primero**\n\nAntes de gastar en cualquier cosa, separa tu ahorro."
+      }
+    },
+    {
+      "type": "mcq",
+      "payload": {
+        "question": "¿Cuál es la regla de oro del ahorro?",
+        "options": [
+          "Ahorrar lo que sobra al final del mes",
+          "Pagar todas las deudas antes de ahorrar",
+          "Págate a ti mismo primero",
+          "Solo ahorrar en cuentas de alto interés"
+        ],
+        "answerIndex": 2,
+        "rationale": "¡Correcto! La regla de oro es pagarte a ti mismo primero. Separa tu ahorro antes de gastar en otras cosas."
+      }
+    },
+    {
+      "type": "vf",
+      "payload": {
+        "statement": "El ahorro es la base de la estabilidad financiera.",
+        "answer": true,
+        "rationale": "¡Exacto! Sin ahorro no puedes invertir, no tienes tranquilidad financiera, y no puedes alcanzar tus metas a largo plazo."
+      }
+    },
+    {
+      "type": "gap",
+      "payload": {
+        "sentence": "El __ de emergencia es tu primera prioridad de ahorro.",
+        "missing": "fondo"
+      }
+    },
+    {
+      "type": "slider",
+      "payload": {
+        "label": "¿Cuántos meses de gastos debería cubrir tu fondo de emergencia?",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "correct": 6,
+        "tolerance": 1
+      }
+    },
+    {
+      "type": "sim",
+      "payload": {
+        "name": "ahorro",
+        "params": {
+          "ingresos_mensuales": 100000,
+          "gastos_mensuales": 80000,
+          "ahorro_mensual": 20000,
+          "objetivo": 480000
+        }
+      }
+    }
+  ]
+}

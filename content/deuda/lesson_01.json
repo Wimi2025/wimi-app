@@ -1,0 +1,66 @@
+{
+  "routeId": "deuda",
+  "lessonId": "deuda_01",
+  "title": "Tipos de deuda",
+  "order": 1,
+  "durationMin": 6,
+  "blocks": [
+    {
+      "type": "text",
+      "payload": {
+        "md": "# Tipos de deuda\n\nNo todas las deudas son iguales. Algunas te ayudan a **construir riqueza**, otras te la **destruyen**.\n\n## ✅ **Deuda Buena** (Constructiva)\n\n### **Hipoteca**\n- Propósito: Comprar vivienda\n- Interés: Bajo (3-6%)\n- Beneficio: Construye patrimonio\n\n### **Préstamo estudiantil**\n- Propósito: Educación\n- Interés: Bajo-Medio\n- Beneficio: Aumenta ingresos futuros\n\n## ❌ **Deuda Mala** (Destructiva)\n\n### **Tarjetas de crédito**\n- Propósito: Consumo\n- Interés: Alto (15-30%)\n- Problema: No genera valor\n\n### **Préstamos de día de pago**\n- Propósito: Gastos corrientes\n- Interés: Extremo (300%+)\n- Problema: Ciclo de pobreza"
+      }
+    },
+    {
+      "type": "mcq",
+      "payload": {
+        "question": "¿Cuál es la principal diferencia entre deuda buena y mala?",
+        "options": [
+          "El monto del préstamo",
+          "La institución que lo otorga",
+          "Si genera valor o no",
+          "El tiempo de pago"
+        ],
+        "answerIndex": 2,
+        "rationale": "¡Correcto! La deuda buena genera valor (casa, educación) mientras que la deuda mala no genera valor (consumo, gastos corrientes)."
+      }
+    },
+    {
+      "type": "vf",
+      "payload": {
+        "statement": "Una hipoteca es considerada deuda buena porque construye patrimonio.",
+        "answer": true,
+        "rationale": "¡Exacto! Una hipoteca te permite comprar una propiedad que generalmente aumenta de valor con el tiempo, construyendo tu patrimonio."
+      }
+    },
+    {
+      "type": "gap",
+      "payload": {
+        "sentence": "Las tarjetas de crédito son deuda __ porque no generan valor.",
+        "missing": "mala"
+      }
+    },
+    {
+      "type": "slider",
+      "payload": {
+        "label": "¿Qué porcentaje de tus ingresos debería destinarse al pago de deudas?",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "correct": 20,
+        "tolerance": 5
+      }
+    },
+    {
+      "type": "sim",
+      "payload": {
+        "name": "cuota_interes",
+        "params": {
+          "monto": 1000000,
+          "tasa_anual": 12,
+          "plazo_meses": 36
+        }
+      }
+    }
+  ]
+}

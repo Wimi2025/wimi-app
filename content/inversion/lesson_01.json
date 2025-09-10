@@ -1,0 +1,67 @@
+{
+  "routeId": "inversion",
+  "lessonId": "inversion_01",
+  "title": "Introducción a la inversión",
+  "order": 1,
+  "durationMin": 7,
+  "blocks": [
+    {
+      "type": "text",
+      "payload": {
+        "md": "# Introducción a la inversión\n\nInvertir es hacer que tu dinero **trabaje para ti** en lugar de trabajar solo para el dinero.\n\n## 💰 ¿Por qué invertir?\n\n- 📈 **Crecimiento del dinero**: Supera la inflación\n- ⏰ **Interés compuesto**: El tiempo es tu aliado\n- 🎯 **Metas a largo plazo**: Jubilación, casa, educación\n- 🛡️ **Diversificación**: Reduce riesgos\n\n## 🏆 Regla de oro:\n\n**Invierte solo después de tener:**\n1. Fondo de emergencia (6 meses)\n2. Deudas de alto interés pagadas\n3. Presupuesto equilibrado"
+      }
+    },
+    {
+      "type": "mcq",
+      "payload": {
+        "question": "¿Cuál es la principal ventaja del interés compuesto?",
+        "options": [
+          "Mayor liquidez",
+          "Menor riesgo",
+          "Crecimiento exponencial del dinero",
+          "Mayor control"
+        ],
+        "answerIndex": 2,
+        "rationale": "¡Correcto! El interés compuesto hace que tu dinero crezca exponencialmente porque ganas intereses sobre los intereses ya ganados."
+      }
+    },
+    {
+      "type": "vf",
+      "payload": {
+        "statement": "Debes tener un fondo de emergencia antes de empezar a invertir.",
+        "answer": true,
+        "rationale": "¡Exacto! El fondo de emergencia es tu red de seguridad. Sin él, podrías verse obligado a vender inversiones en momentos desfavorables."
+      }
+    },
+    {
+      "type": "gap",
+      "payload": {
+        "sentence": "La __ es clave para reducir el riesgo en las inversiones.",
+        "missing": "diversificación"
+      }
+    },
+    {
+      "type": "slider",
+      "payload": {
+        "label": "¿Qué porcentaje de tus ingresos deberías invertir?",
+        "min": 0,
+        "max": 30,
+        "step": 5,
+        "correct": 15,
+        "tolerance": 5
+      }
+    },
+    {
+      "type": "sim",
+      "payload": {
+        "name": "interes_compuesto",
+        "params": {
+          "inversion_inicial": 100000,
+          "aporte_mensual": 50000,
+          "tasa_anual": 8,
+          "anos": 10
+        }
+      }
+    }
+  ]
+}

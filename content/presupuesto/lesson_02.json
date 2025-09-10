@@ -1,0 +1,67 @@
+{
+  "routeId": "presupuesto",
+  "lessonId": "presupuesto_02",
+  "title": "Categorías de gastos",
+  "order": 2,
+  "durationMin": 7,
+  "blocks": [
+    {
+      "type": "text",
+      "payload": {
+        "md": "# Categorías de gastos\n\nPara crear un presupuesto efectivo, necesitas **clasificar** tus gastos en categorías.\n\n## 📊 Las 3 categorías principales:\n\n### 1. **Gastos Fijos** (50-60%)\n- Alquiler/hipoteca\n- Servicios básicos\n- Seguros\n- Transporte fijo\n\n### 2. **Gastos Variables** (20-30%)\n- Comida\n- Entretenimiento\n- Ropa\n- Gastos imprevistos\n\n### 3. **Ahorro e Inversión** (20%)\n- Fondo de emergencia\n- Metas financieras\n- Inversiones"
+      }
+    },
+    {
+      "type": "mcq",
+      "payload": {
+        "question": "¿Cuál es el porcentaje recomendado para gastos fijos?",
+        "options": [
+          "30-40%",
+          "50-60%",
+          "70-80%",
+          "90-100%"
+        ],
+        "answerIndex": 1,
+        "rationale": "¡Perfecto! Los gastos fijos deben representar entre 50-60% de tus ingresos para mantener un presupuesto equilibrado."
+      }
+    },
+    {
+      "type": "vf",
+      "payload": {
+        "statement": "Los gastos de entretenimiento pertenecen a la categoría de gastos variables.",
+        "answer": true,
+        "rationale": "¡Correcto! El entretenimiento es un gasto variable porque puedes controlarlo y ajustarlo según tus necesidades."
+      }
+    },
+    {
+      "type": "gap",
+      "payload": {
+        "sentence": "El __ de emergencia debe ser tu primera prioridad de ahorro.",
+        "missing": "fondo"
+      }
+    },
+    {
+      "type": "slider",
+      "payload": {
+        "label": "¿Qué porcentaje de tus ingresos destinas a gastos variables?",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "correct": 25,
+        "tolerance": 5
+      }
+    },
+    {
+      "type": "sim",
+      "payload": {
+        "name": "presupuesto",
+        "params": {
+          "ingresos": 150000,
+          "fijos": 90000,
+          "variables": 37500,
+          "ahorro_objetivo": 22500
+        }
+      }
+    }
+  ]
+}

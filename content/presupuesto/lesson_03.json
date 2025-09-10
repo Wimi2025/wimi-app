@@ -1,0 +1,67 @@
+{
+  "routeId": "presupuesto",
+  "lessonId": "presupuesto_03",
+  "title": "Herramientas de presupuesto",
+  "order": 3,
+  "durationMin": 8,
+  "blocks": [
+    {
+      "type": "text",
+      "payload": {
+        "md": "# Herramientas de presupuesto\n\nExisten muchas formas de crear y mantener tu presupuesto. La clave es encontrar la que **funcione para ti**.\n\n## 📱 Aplicaciones móviles\n- **Mint**: Automatización completa\n- **YNAB**: Método de presupuesto por categorías\n- **PocketGuard**: Enfoque en gastos disponibles\n\n## 📊 Hojas de cálculo\n- **Excel/Google Sheets**: Máximo control\n- **Plantillas predefinidas**: Fácil de usar\n- **Gráficos personalizados**: Visualización clara\n\n## 📝 Método tradicional\n- **Papel y lápiz**: Simple y efectivo\n- **Envelope system**: Dinero físico por categoría\n- **Registro diario**: Control detallado"
+      }
+    },
+    {
+      "type": "mcq",
+      "payload": {
+        "question": "¿Cuál es la ventaja principal de usar aplicaciones de presupuesto?",
+        "options": [
+          "Son más baratas",
+          "Automatizan el seguimiento de gastos",
+          "No necesitan internet",
+          "Son más seguras"
+        ],
+        "answerIndex": 1,
+        "rationale": "¡Exacto! Las aplicaciones automatizan el seguimiento de gastos, conectándose con tus cuentas bancarias para categorizar automáticamente las transacciones."
+      }
+    },
+    {
+      "type": "vf",
+      "payload": {
+        "statement": "El método de sobres (envelope system) solo funciona con dinero en efectivo.",
+        "answer": true,
+        "rationale": "¡Correcto! El método de sobres tradicional usa dinero físico dividido en sobres por categoría, lo que ayuda a visualizar mejor los límites de gasto."
+      }
+    },
+    {
+      "type": "gap",
+      "payload": {
+        "sentence": "La __ de presupuesto debe ser simple y fácil de mantener.",
+        "missing": "herramienta"
+      }
+    },
+    {
+      "type": "slider",
+      "payload": {
+        "label": "¿Con qué frecuencia revisas tu presupuesto?",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "correct": 7,
+        "tolerance": 3
+      }
+    },
+    {
+      "type": "sim",
+      "payload": {
+        "name": "presupuesto",
+        "params": {
+          "ingresos": 200000,
+          "fijos": 120000,
+          "variables": 50000,
+          "ahorro_objetivo": 30000
+        }
+      }
+    }
+  ]
+}

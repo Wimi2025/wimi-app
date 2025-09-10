@@ -1,0 +1,67 @@
+{
+  "routeId": "ahorro",
+  "lessonId": "ahorro_02",
+  "title": "Tipos de cuentas de ahorro",
+  "order": 2,
+  "durationMin": 7,
+  "blocks": [
+    {
+      "type": "text",
+      "payload": {
+        "md": "# Tipos de cuentas de ahorro\n\nNo todas las cuentas de ahorro son iguales. Cada una tiene **ventajas y desventajas** específicas.\n\n## 🏦 Cuentas tradicionales\n\n### **Cuenta de ahorros básica**\n- Interés: 0.5% - 2% anual\n- Liquidez: Inmediata\n- Riesgo: Muy bajo\n- Ideal para: Fondo de emergencia\n\n### **Cuenta de ahorros a plazo fijo**\n- Interés: 3% - 8% anual\n- Liquidez: Limitada (plazo mínimo)\n- Riesgo: Bajo\n- Ideal para: Metas a mediano plazo"
+      }
+    },
+    {
+      "type": "mcq",
+      "payload": {
+        "question": "¿Cuál es la principal ventaja de una cuenta de ahorros básica?",
+        "options": [
+          "Alto interés",
+          "Liquidez inmediata",
+          "Sin límites de retiro",
+          "Sin comisiones"
+        ],
+        "answerIndex": 1,
+        "rationale": "¡Correcto! La liquidez inmediata es la principal ventaja de las cuentas de ahorros básicas, perfectas para emergencias."
+      }
+    },
+    {
+      "type": "vf",
+      "payload": {
+        "statement": "Las cuentas a plazo fijo ofrecen mayor interés que las cuentas básicas.",
+        "answer": true,
+        "rationale": "¡Exacto! Las cuentas a plazo fijo ofrecen mayor interés (3-8%) porque comprometes tu dinero por un tiempo determinado."
+      }
+    },
+    {
+      "type": "gap",
+      "payload": {
+        "sentence": "El __ de emergencia debe estar en una cuenta de alta liquidez.",
+        "missing": "fondo"
+      }
+    },
+    {
+      "type": "slider",
+      "payload": {
+        "label": "¿Qué porcentaje de tu ahorro destinarías a plazo fijo?",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "correct": 30,
+        "tolerance": 10
+      }
+    },
+    {
+      "type": "sim",
+      "payload": {
+        "name": "ahorro",
+        "params": {
+          "ingresos_mensuales": 150000,
+          "gastos_mensuales": 120000,
+          "ahorro_mensual": 30000,
+          "objetivo": 720000
+        }
+      }
+    }
+  ]
+}

@@ -7,31 +7,29 @@ import '../../../core/constants/app_colors.dart';
 import '../models/lesson_model.dart';
 import '../services/lesson_repository.dart';
 
-class LessonsScreen extends ConsumerStatefulWidget {
-  final String routeId;
-
-  const LessonsScreen({super.key, required this.routeId});
+class RoutesScreen extends ConsumerStatefulWidget {
+  const RoutesScreen({super.key});
 
   @override
-  ConsumerState<LessonsScreen> createState() => _LessonsScreenState();
+  ConsumerState<RoutesScreen> createState() => _RoutesScreenState();
 }
 
-class _LessonsScreenState extends ConsumerState<LessonsScreen> {
+class _RoutesScreenState extends ConsumerState<RoutesScreen> {
   final LessonRepository _lessonRepository = LessonRepository();
-  List<LessonModel> _lessons = [];
+  List<RouteModel> _routes = [];
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _loadLessons();
+    _loadRoutes();
   }
 
-  Future<void> _loadLessons() async {
+  Future<void> _loadRoutes() async {
     try {
-      final lessons = await _lessonRepository.getLessonsByRoute(widget.routeId);
+      final routes = await _lessonRepository.getRoutes();
       setState(() {
-        _lessons = lessons;
+        _routes = routes;
         _isLoading = false;
       });
     } catch (e) {
@@ -41,7 +39,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error al cargar lecciones: $e'),
+            content: Text('Error al cargar rutas: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -67,13 +65,13 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Header
-                _buildHeader(context),
+                _buildHeader(),
 
                 const SizedBox(height: 24),
 
-                // Lista de lecciones
+                // Lista de rutas
                 Expanded(
-                  child: _isLoading ? _buildLoading() : _buildLessonsList(),
+                  child: _isLoading ? _buildLoading() : _buildRoutesList(),
                 ),
               ],
             ),
@@ -83,7 +81,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -97,7 +95,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
 
         // Título
         Text(
-              _getRouteTitle(widget.routeId),
+              'Rutas de Aprendizaje',
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
@@ -112,7 +110,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
 
         // Subtítulo
         Text(
-              '${_lessons.length} lecciones disponibles',
+              'Elige tu aventura financiera',
               style: const TextStyle(fontSize: 16, color: Colors.white70),
             )
             .animate()
@@ -130,23 +128,22 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
     );
   }
 
-  Widget _buildLessonsList() {
+  Widget _buildRoutesList() {
     return ListView.builder(
-      itemCount: _lessons.length,
+      itemCount: _routes.length,
       itemBuilder: (context, index) {
-        final lesson = _lessons[index];
-        return _buildLessonCard(lesson, index);
+        final route = _routes[index];
+        return _buildRouteCard(route, index);
       },
     );
   }
 
-  Widget _buildLessonCard(LessonModel lesson, int index) {
+  Widget _buildRouteCard(RouteModel route, int index) {
     final colors = [
       AppColors.wimiGold,
       AppColors.wimiEmerald,
       AppColors.wimiRuby,
       AppColors.wimiSapphire,
-      AppColors.wimiBronze,
     ];
 
     final color = colors[index % colors.length];
@@ -156,7 +153,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () => _startLesson(lesson),
+              onTap: () => context.go('/lessons/${route.id}'),
               borderRadius: BorderRadius.circular(16),
               child: Container(
                 padding: const EdgeInsets.all(20),
@@ -171,23 +168,18 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
                 ),
                 child: Row(
                   children: [
-                    // Número de lección
+                    // Icono
                     Container(
-                      width: 50,
-                      height: 50,
+                      width: 60,
+                      height: 60,
                       decoration: BoxDecoration(
                         color: color.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Center(
-                        child: Text(
-                          '${lesson.order}',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: color,
-                          ),
-                        ),
+                      child: Icon(
+                        _getIconData(route.icon),
+                        color: color,
+                        size: 30,
                       ),
                     ),
 
@@ -199,9 +191,9 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            lesson.title,
+                            route.title,
                             style: const TextStyle(
-                              fontSize: 18,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -210,7 +202,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
                           const SizedBox(height: 4),
 
                           Text(
-                            '${lesson.durationMin} minutos • ${lesson.blocks.length} ejercicios',
+                            '5 lecciones disponibles',
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.white.withOpacity(0.7),
@@ -241,25 +233,8 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
                       ),
                     ),
 
-                    // Estado de la lección
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: color.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        'Nueva',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: color,
-                        ),
-                      ),
-                    ),
+                    // Flecha
+                    Icon(Icons.arrow_forward_ios, color: color, size: 20),
                   ],
                 ),
               ),
@@ -271,28 +246,18 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
         .slideX(begin: 0.3, end: 0, duration: 600.ms, delay: (index * 100).ms);
   }
 
-  String _getRouteTitle(String routeId) {
-    switch (routeId) {
-      case 'presupuesto':
-        return 'Presupuesto Personal';
-      case 'ahorro':
-        return 'Ahorro e Inversión';
-      case 'deuda':
-        return 'Deuda y Crédito';
-      case 'inversion':
-        return 'Inversión Básica';
+  IconData _getIconData(String iconName) {
+    switch (iconName) {
+      case 'account_balance_wallet':
+        return Icons.account_balance_wallet;
+      case 'savings':
+        return Icons.savings;
+      case 'credit_card':
+        return Icons.credit_card;
+      case 'trending_up':
+        return Icons.trending_up;
       default:
-        return 'Lecciones';
+        return Icons.school;
     }
-  }
-
-  void _startLesson(LessonModel lesson) {
-    // TODO: Implementar navegación a la lección específica
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Iniciando lección: ${lesson.title}'),
-        backgroundColor: AppColors.wimiGold,
-      ),
-    );
   }
 }

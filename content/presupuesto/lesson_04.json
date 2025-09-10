@@ -1,0 +1,67 @@
+{
+  "routeId": "presupuesto",
+  "lessonId": "presupuesto_04",
+  "title": "Errores comunes en presupuestos",
+  "order": 4,
+  "durationMin": 6,
+  "blocks": [
+    {
+      "type": "text",
+      "payload": {
+        "md": "# Errores comunes en presupuestos\n\nEvitar estos errores te ayudará a crear un presupuesto **realista y sostenible**.\n\n## ❌ Errores más frecuentes:\n\n### 1. **Ser demasiado optimista**\n- Subestimar gastos reales\n- No incluir gastos imprevistos\n- Ignorar gastos pequeños\n\n### 2. **No revisar regularmente**\n- Crear presupuesto y olvidarlo\n- No ajustar cuando cambian ingresos\n- No aprender de los errores\n\n### 3. **Categorías muy generales**\n- \"Gastos varios\" muy amplio\n- No separar necesidades de deseos\n- Mezclar gastos fijos y variables"
+      }
+    },
+    {
+      "type": "mcq",
+      "payload": {
+        "question": "¿Cuál es el error más común al crear un presupuesto?",
+        "options": [
+          "Ser demasiado pesimista",
+          "Ser demasiado optimista",
+          "Usar muchas categorías",
+          "Revisarlo muy seguido"
+        ],
+        "answerIndex": 1,
+        "rationale": "¡Correcto! Ser demasiado optimista es el error más común. La gente tiende a subestimar sus gastos reales y no incluir gastos imprevistos."
+      }
+    },
+    {
+      "type": "vf",
+      "payload": {
+        "statement": "Es mejor tener categorías muy generales que muchas categorías específicas.",
+        "answer": false,
+        "rationale": "¡Incorrecto! Las categorías muy generales como \"gastos varios\" no te permiten identificar dónde se va tu dinero realmente."
+      }
+    },
+    {
+      "type": "gap",
+      "payload": {
+        "sentence": "Un presupuesto debe ser __ y ajustarse a tu realidad.",
+        "missing": "realista"
+      }
+    },
+    {
+      "type": "slider",
+      "payload": {
+        "label": "¿Qué porcentaje de tu presupuesto deberías reservar para gastos imprevistos?",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "correct": 5,
+        "tolerance": 2
+      }
+    },
+    {
+      "type": "sim",
+      "payload": {
+        "name": "presupuesto",
+        "params": {
+          "ingresos": 120000,
+          "fijos": 72000,
+          "variables": 30000,
+          "ahorro_objetivo": 18000
+        }
+      }
+    }
+  ]
+}

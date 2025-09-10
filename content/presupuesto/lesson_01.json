@@ -1,0 +1,67 @@
+{
+  "routeId": "presupuesto",
+  "lessonId": "presupuesto_01",
+  "title": "Tu primer presupuesto",
+  "order": 1,
+  "durationMin": 6,
+  "blocks": [
+    {
+      "type": "text",
+      "payload": {
+        "md": "# Tu primer presupuesto\n\nUn **presupuesto** es tu mapa del tesoro financiero. Te ayuda a decidir **antes** cómo usar tu dinero, no después de gastarlo.\n\n## ¿Por qué necesitas un presupuesto?\n\n- 🎯 **Control total** de tus finanzas\n- 💰 **Ahorro garantizado** cada mes\n- 🚫 **Evita deudas** innecesarias\n- 📈 **Alcanza metas** financieras\n\n## La fórmula mágica:\n\n**Ahorro = Ingresos - Gastos planificados**"
+      }
+    },
+    {
+      "type": "mcq",
+      "payload": {
+        "question": "¿Qué es un presupuesto?",
+        "options": [
+          "Un registro de gastos ya hechos",
+          "Un plan previo de ingresos y gastos",
+          "Un préstamo bancario",
+          "Una cuenta de ahorros"
+        ],
+        "answerIndex": 1,
+        "rationale": "¡Correcto! El presupuesto es un **plan previo** que te ayuda a decidir cómo usar tu dinero antes de gastarlo."
+      }
+    },
+    {
+      "type": "vf",
+      "payload": {
+        "statement": "Ahorro = Ingresos - Gastos planificados",
+        "answer": true,
+        "rationale": "¡Exacto! Esta es la fórmula básica para calcular cuánto puedes ahorrar cada mes."
+      }
+    },
+    {
+      "type": "gap",
+      "payload": {
+        "sentence": "Siempre __ una parte para el ahorro en tu presupuesto.",
+        "missing": "separa"
+      }
+    },
+    {
+      "type": "slider",
+      "payload": {
+        "label": "¿Qué porcentaje de tus ingresos deberías ahorrar?",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "correct": 20,
+        "tolerance": 5
+      }
+    },
+    {
+      "type": "sim",
+      "payload": {
+        "name": "presupuesto",
+        "params": {
+          "ingresos": 100000,
+          "fijos": 60000,
+          "variables": 25000,
+          "ahorro_objetivo": 15000
+        }
+      }
+    }
+  ]
+}

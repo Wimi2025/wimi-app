@@ -1,0 +1,67 @@
+{
+  "routeId": "presupuesto",
+  "lessonId": "presupuesto_05",
+  "title": "Presupuesto 50/30/20",
+  "order": 5,
+  "durationMin": 7,
+  "blocks": [
+    {
+      "type": "text",
+      "payload": {
+        "md": "# El método 50/30/20\n\nEsta es una de las reglas de presupuesto **más populares y efectivas**.\n\n## 📊 Distribución del método:\n\n### 50% - **Necesidades**\n- Vivienda (alquiler/hipoteca)\n- Servicios básicos\n- Alimentación esencial\n- Transporte necesario\n- Seguros básicos\n\n### 30% - **Deseos**\n- Entretenimiento\n- Comidas fuera\n- Ropa no esencial\n- Hobbies\n- Viajes\n\n### 20% - **Ahorro e Inversión**\n- Fondo de emergencia\n- Metas financieras\n- Inversiones\n- Jubilación"
+      }
+    },
+    {
+      "type": "mcq",
+      "payload": {
+        "question": "¿Qué porcentaje del método 50/30/20 se destina a necesidades?",
+        "options": [
+          "30%",
+          "40%",
+          "50%",
+          "60%"
+        ],
+        "answerIndex": 2,
+        "rationale": "¡Perfecto! El 50% se destina a necesidades básicas como vivienda, servicios y alimentación esencial."
+      }
+    },
+    {
+      "type": "vf",
+      "payload": {
+        "statement": "El método 50/30/20 es flexible y se puede ajustar según tus circunstancias.",
+        "answer": true,
+        "rationale": "¡Exacto! Aunque es una guía útil, puedes ajustar los porcentajes según tu situación específica, especialmente si vives en una ciudad cara o tienes deudas."
+      }
+    },
+    {
+      "type": "gap",
+      "payload": {
+        "sentence": "El método 50/30/20 te ayuda a __ tus finanzas de manera equilibrada.",
+        "missing": "organizar"
+      }
+    },
+    {
+      "type": "slider",
+      "payload": {
+        "label": "¿Qué porcentaje de tus ingresos destinas actualmente a ahorro?",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "correct": 20,
+        "tolerance": 5
+      }
+    },
+    {
+      "type": "sim",
+      "payload": {
+        "name": "presupuesto",
+        "params": {
+          "ingresos": 300000,
+          "fijos": 150000,
+          "variables": 90000,
+          "ahorro_objetivo": 60000
+        }
+      }
+    }
+  ]
+}
